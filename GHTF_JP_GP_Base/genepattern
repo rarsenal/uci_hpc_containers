@@ -1,0 +1,21 @@
+#!/bin/bash
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -p | --port )           shift
+                                startport=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+echo "genepattern starting" > $HOME/test.out
+echo "port: "$startport >> $HOME/test.out
+
+unset PS1
+nohup /opt/genepattern/StartGenePatternServer &
