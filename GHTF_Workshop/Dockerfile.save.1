@@ -24,6 +24,14 @@ RUN ln -s bowtie2 bowtie
 # Change in PATH
 ENV PATH $PATH:/bin/tophat-2.0.14.Linux_x86_64
 ENV PATH $PATH:/bin/bowtie2-2.2.3
+
+RUN apt-get -y install --fix-missing make && \
+libbz2-dev && \
+zlib1g-dev && \
+libncurses5-dev && \
+libncursesw5-dev && \
+liblzma-dev
+
 # Remove wget and unzip
 #RUN apt-get purge --yes wget unzip
 
@@ -36,17 +44,6 @@ RUN Rscript -e 'install.packages("gplots")'
 #RUN Rscript -e 'library(devtools)' \
 #	-e 'install_github("cran/gplots")'
 
-RUN apt-get update && \
-	apt-get -y install --fix-missing samtools
 
-RUN wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz
-RUN tar -zxvf cufflinks-2.2.1.Linux_x86_64.tar.gz
-
-# add cufflinks to path
-ENV PATH /usr/local/cufflinks-2.2.1.Linux_x86_64:$PATH
-
-# Cleanup
-RUN rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz
-RUN apt-get clean
 
 USER $NB_USER
