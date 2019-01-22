@@ -27,13 +27,27 @@ RUN pip install tqdm
 
 # retrieving eKLIPse
 RUN git clone https://github.com/dooguypapua/eKLIPse.git
-RUN cd /eKLIPse
+
+WORKDIR /eKLIPse
 
 # Getting good version of blast
 RUN wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz
+
 RUN tar -xvzf ncbi-blast-2.7.1+-x64-linux.tar.gz
 
 ENV PATH="/eKLIPse/ncbi-blast-2.7.1+/bin/:${PATH}"
+
+RUN rm ncbi-blast-2.7.1+-x64-linux.tar.gz
+
+RUN mkdir /opt/software \
+&& mkdir /opt/software/circos \
+&& cd /opt/software/circos \
+&& wget http://circos.ca/distribution/circos-0.69-2.tgz \
+&& tar xvfz circos-0.69-2.tgz \
+&& ln -s circos-0.69-2 current \
+&& rm -rf /*.tar.gz
+
+ENV PATH="/opt/software/circos/current/bin/:${PATH}"
 
 #CMD ["python eKLIPse.py --test"]
 

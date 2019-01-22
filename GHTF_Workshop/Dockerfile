@@ -36,14 +36,14 @@ RUN Rscript -e 'install.packages("gplots")'
 #RUN Rscript -e 'library(devtools)' \
 #	-e 'install_github("cran/gplots")'
 
-RUN apt-get update && \
-	apt-get -y install --fix-missing samtools
+RUN conda install -c bioconda -c r samtools --override-channels
 
+WORKDIR /bin
 RUN wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz
 RUN tar -zxvf cufflinks-2.2.1.Linux_x86_64.tar.gz
 
 # add cufflinks to path
-ENV PATH /usr/local/cufflinks-2.2.1.Linux_x86_64:$PATH
+ENV PATH /bin/cufflinks-2.2.1.Linux_x86_64:$PATH
 
 # Cleanup
 RUN rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz
