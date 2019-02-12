@@ -49,4 +49,28 @@ ENV PATH /bin/cufflinks-2.2.1.Linux_x86_64:$PATH
 RUN rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz
 RUN apt-get clean
 
+RUN conda install --quiet --yes -c conda-forge jupyter_contrib_nbextensions && \
+	conda clean -tipsy
+
+RUN yes | pip install genepattern-notebook && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter nbextension install --py genepattern --sys-prefix && \
+    jupyter nbextension enable --py genepattern --sys-prefix && \
+    jupyter serverextension enable --py genepattern --sys-prefix && \
+    jupyter nbextension install --py nbtools --sys-prefix && \
+    jupyter nbextension enable --py nbtools --sys-prefix && \
+    jupyter serverextension enable --py nbtools --sys-prefix
+
+RUN pip install igv
+
+RUN rm -rf /home/$NB_USER/.cache/yarn && \
+    rm -rf /home/$NB_USER/.node-gyp && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+RUN jupyter nbextension install --py igv && \
+    jupyter nbextension enable --py igv
+
 USER $NB_USER
+
+WORKDIR /home/$NB_USER

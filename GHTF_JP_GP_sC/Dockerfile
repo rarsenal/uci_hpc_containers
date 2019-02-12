@@ -22,3 +22,6 @@ RUN Rscript -e 'source("http://cf.10xgenomics.com/supp/cell-exp/rkit-install-2.0
 
 #install R packages 3/3
 RUN Rscript -e "install.packages('Seurat', dependencies=TRUE)"
+
+RUN pip install scanpy
+
