@@ -1,4 +1,4 @@
-FROM rarsenal/ghtf-jp-bulk-gp
+FROM rarsenal/ghtf-jpy-gp-rbulk-3.5
 
 MAINTAINER iychang@uci.edu
 

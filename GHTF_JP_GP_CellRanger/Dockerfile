@@ -1,4 +1,4 @@
-FROM rarsenal/ghtf-jp-sc-gp
+FROM rarsenal/ghtf-jpy-gp-sc-3.5
 
 MAINTAINER iychang@uci.edu
 

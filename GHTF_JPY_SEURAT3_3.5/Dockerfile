@@ -1,4 +1,4 @@
-FROM rarsenal/ghtf-jp-rbase-gp
+FROM rarsenal/ghtf-jpy-rbase-3.5
 
 MAINTAINER iychang@uci.edu
 
@@ -11,7 +11,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_USER 
-
 
 #install R packages 1/3
 #RUN Rscript -e 'BiocManager::install("monocle", version = "3.8")'
@@ -33,4 +32,6 @@ USER $NB_USER
 RUN Rscript -e "devtools::install_github(repo = 'satijalab/seurat', ref = 'release/3.0')"
 
 #RUN pip install scanpy
+RUN conda install --yes -c conda-forge umap-learn && \
+	conda clean -tipsy
 

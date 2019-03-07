@@ -1,4 +1,4 @@
-FROM rarsenal/ghtf-jp-rbase-gp
+FROM rarsenal/ghtf-jpy-gp-rbase-3.5
 
 MAINTAINER iychang@uci.edu
 
@@ -12,9 +12,11 @@ RUN apt-get update && \
 
 USER $NB_USER 
 
+RUN Rscript -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")'
+
 
 #install R packages 1/3
-#RUN Rscript -e 'BiocManager::install("monocle", version = "3.8")'
+RUN Rscript -e 'BiocManager::install("monocle", version = "3.8")'
 #USER root
 #RUN apt-get update && \
 #    apt install libgsl-dev
@@ -31,6 +33,10 @@ RUN ln -s /bin/gzip /usr/bin/gzip
 RUN ln -s /bin/tar /bin/gtar
 USER $NB_USER
 RUN Rscript -e "devtools::install_github(repo = 'satijalab/seurat', ref = 'release/3.0')"
+
+RUN conda install --quiet --yes libssh2
+RUN conda install --quiet --yes krb5 && \
+    conda clean -tipsy
 
 #RUN pip install scanpy
 
