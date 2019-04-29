@@ -17,7 +17,7 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
 
 RUN . /opt/conda/etc/profile.d/conda.sh && \
 	conda activate python2 && \
-	conda install -c darts-comp-bio darts_dnn && \
+	conda install -c darts-comp-bio darts_dnn darts_bht && \
 	conda clean -tipsy && \
 	python -m ipykernel install --user && \
 	fix-permissions $CONDA_DIR
