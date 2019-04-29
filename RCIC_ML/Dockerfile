@@ -1,4 +1,4 @@
-FROM ucigenomics/ghtf-r3.5-jpy-powsimr
+FROM ucigenomics/ghtf-r3.5-jpy-singlecell
 
 RUN conda install pytorch torchvision cudatoolkit=9.0 -c pytorch && \
     	conda install -c anaconda tensorflow-gpu && \
